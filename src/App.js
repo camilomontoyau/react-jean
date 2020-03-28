@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import { formFields } from "./estados-form";
 import querystring from "querystring";
-import Input from "./components/atoms/Input";
-import Note from "./components/atoms/Note";
-import Select from "./components/atoms/Select";
+import Section from "./components/molecules/Section";
 const URL_API = "https://bootcamp-dia-3.camilomontoyau.now.sh/usuarios/";
 
 const sections = [
@@ -13,16 +11,6 @@ const sections = [
   { start: 19, end: 29 },
   { start: 29, end: 32 }
 ];
-
-const FieldTypes = {
-  date: Input,
-  text: Input,
-  number: Input,
-  checkbox: Input,
-  note: Note,
-  select: Select,
-  "multi select": Select
-};
 
 class App extends Component {
   state = {
@@ -81,20 +69,13 @@ class App extends Component {
             {sections.map(({ start, end }, index) => {
               const sectionFields = fields.slice(start, end);
               return (
-                <div key={`section-${index}`}>
-                  <h1>sección {index + 1}</h1>
-                  {sectionFields.map((field, indice) => {
-                    const Comp = FieldTypes[field.type];
-                    return (
-                      <Comp
-                        {...field}
-                        key={`field-${indice}`}
-                        handleValues={handleValues}
-                        readOnly={readOnly}
-                      />
-                    );
-                  })}
-                </div>
+                <Section
+                  fields={sectionFields}
+                  handleValues={handleValues}
+                  readOnly={readOnly}
+                  index={index}
+                  key={`section-${index}`}
+                />
               );
             })}
             <button type="submit">enviar</button>
