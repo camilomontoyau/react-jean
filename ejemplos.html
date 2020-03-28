@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+
+
+
+        <script>
+
+            const formFields = [
+                {name: 'name1', required: true, type: "text"},
+                {name: 'name2', required: false, type: "text"},
+                {name: 'name3', required: true, type: "text"},
+                {name: 'name4', required: true, type: "text"},
+                {name: 'name5', required: false, type: "text"},
+                {name: 'name6', required: true, type: "text"},
+            ];
+
+            const data = {
+                'name1': 'value1',
+                'name2': 'value2',
+                'name3': 'value3',
+                'name4': 'value4',
+                'name5': 'value5',
+                'name6': '',
+            }
+
+            function validacionField(unEstadoEspecificoDeData) {
+                return(elementoDeFormFields)=> {
+                    if(elementoDeFormFields.required) return ({...elementoDeFormFields, valido: elementoDeFormFields.required && unEstadoEspecificoDeData[elementoDeFormFields.name].length > 0 })
+                    return ({...elementoDeFormFields, valido: true })
+                }
+            } 
+            
+            
+            
+            const validacionDataEstado1 = validacionField(data);
+            const formFieldsValid = formFields.map(validacionDataEstado1) // caso 1
+
+            const dataEstado2 = {
+                'name1': 'value1',
+                'name2': 'value2',
+                'name3': 'value3',
+                'name4': 'value4',
+                'name5': 'value5',
+                'name6': 'ahora tiene valor',
+            }
+            const validacionDataEstado2 = validacionField(dataEstado2);
+
+            const formFieldsValid2 = formFields.map(validacionDataEstado2) //caso2
+
+        </script>
+    </body>
+</html>
