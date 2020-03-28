@@ -78,15 +78,23 @@ class App extends Component {
       <div className="App">
         <div>
           <form onSubmit={handleSubmit}>
-            {fields.map((field, indice) => {
-              const Comp = FieldTypes[field.type];
+            {sections.map(({ start, end }, index) => {
+              const sectionFields = fields.slice(start, end);
               return (
-                <Comp
-                  {...field}
-                  key={`field-${indice}`}
-                  handleValues={handleValues}
-                  readOnly={readOnly}
-                />
+                <div key={`section-${index}`}>
+                  <h1>sección {index + 1}</h1>
+                  {sectionFields.map((field, indice) => {
+                    const Comp = FieldTypes[field.type];
+                    return (
+                      <Comp
+                        {...field}
+                        key={`field-${indice}`}
+                        handleValues={handleValues}
+                        readOnly={readOnly}
+                      />
+                    );
+                  })}
+                </div>
               );
             })}
             <button type="submit">enviar</button>
