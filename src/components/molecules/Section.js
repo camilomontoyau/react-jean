@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import Input from "../atoms/Input";
 import Note from "../atoms/Note";
 import Select from "../atoms/Select";
@@ -13,23 +13,45 @@ const FieldTypes = {
   "multi select": Select
 };
 
-const Section = ({ fields, handleValues, readOnly, index }) => {
-  return (
-    <div>
-      <h1>Sección {index + 1}</h1>
-      {fields.map((field, indice) => {
-        const Comp = FieldTypes[field.type];
-        return (
-          <Comp
-            {...field}
-            key={`field-${indice}`}
-            handleValues={handleValues}
-            readOnly={readOnly}
-          />
-        );
-      })}
-    </div>
-  );
-};
+class Section extends Component {
+  state = {
+    collapse: true
+  };
+
+  toggleCollapse = e => {
+    e.preventDefault();
+    const { collapse } = this.state;
+    this.setState({ collapse: !collapse });
+  };
+
+  render() {
+    const { fields, handleValues, readOnly, index } = this.props;
+    const { collapse } = this.state;
+    const { toggleCollapse } = this;
+    return (
+      <div>
+        <h1>
+          <a onClick={toggleCollapse} href="#">
+            Sección {index + 1}
+          </a>
+        </h1>
+
+        <div style={{ display: collapse === true ? "none" : "" }}>
+          {fields.map((field, indice) => {
+            const Comp = FieldTypes[field.type];
+            return (
+              <Comp
+                {...field}
+                key={`field-${indice}`}
+                handleValues={handleValues}
+                readOnly={readOnly}
+              />
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
+}
 
 export default Section;
