@@ -25,7 +25,7 @@ class Section extends Component {
   };
 
   render() {
-    const { fields, handleValues, readOnly, index } = this.props;
+    const { fields, handleValues, readOnly, index, valid } = this.props;
     const { collapse } = this.state;
     const { toggleCollapse } = this;
     return (
@@ -34,6 +34,7 @@ class Section extends Component {
           <a onClick={toggleCollapse} href="#">
             Sección {index + 1}
           </a>
+          {!valid && " no es valido"}
         </h1>
 
         <div style={{ display: collapse === true ? "none" : "" }}>
