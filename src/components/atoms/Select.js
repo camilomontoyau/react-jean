@@ -18,7 +18,7 @@ const Select = ({
         required={required}
         id={`field-${indice}`}
         multiple={type === "multi select"}
-        readOnly={readOnly}
+        disabled={readOnly}
         onChange={handleValues}
         name={name}
       >
